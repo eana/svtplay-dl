@@ -6,4 +6,6 @@
   "labels": ["dependencies"],
   "minor": { "automerge": true },
   "patch": { "automerge": true }
+  "assignees": ["@eana"],
+  "reviewers": ["@eana"]
 }
