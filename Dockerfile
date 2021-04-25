@@ -1,13 +1,21 @@
-FROM debian:10-slim
+FROM python:3.9.4
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV PATH="/home/svtplay-dl/.local/bin:${PATH}"
 
 RUN set -xe && \
     apt update && \
-    apt install -y -qq --no-install-recommends python3 python3-requests python3-setuptools python3-pip locales ffmpeg && \
+    apt install -y -qq --no-install-recommends locales ffmpeg && \
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
-    locale-gen && \
-    pip3 install svtplay-dl
+    useradd -ms /bin/bash svtplay-dl && \
+    locale-gen
+
+USER svtplay-dl
+ADD requirements.txt /home/svtplay-dl/
+
+RUN set -xe && \
+    /usr/local/bin/python -m pip install --upgrade pip && \
+    pip3 install --user -r /home/svtplay-dl/requirements.txt
 
 WORKDIR /data
 

@@ -9,8 +9,7 @@ script.
 
 ```
 TAG=$(curl -s https://api.github.com/repos/spaam/svtplay-dl/tags | jq --raw-output '.[].name' | sort -rV | head -n1)
-docker build -t svtplay-dl https://github.com/eana/svtplay-dl.git
-docker tag svtplay-dl svtplay-dl:${TAG}
+docker build -t svtplay-dl:${TAG} https://github.com/eana/svtplay-dl.git
 ```
 
 ## How to use this image
