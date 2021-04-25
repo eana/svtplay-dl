@@ -7,9 +7,8 @@ APP = "svtplay-dl"
 TAG ?= $(shell curl -s https://api.github.com/repos/spaam/svtplay-dl/tags | jq --raw-output '.[].name' | sort -rV | head -n1)
 
 # The docker tags
-DOCKER_TAG = "395500896865.dkr.ecr.eu-west-1.amazonaws.com/${APP}:${TAG}"
-
-AWS_LOGIN_CMD = $(shell aws ecr get-login --region eu-west-1 --no-include-email)
+DOCKER_REGISTRY_URL = "395500896865.dkr.ecr.eu-west-1.amazonaws.com"
+DOCKER_TAG = "${DOCKER_REGISTRY_URL}/${APP}:${TAG}"
 
 # -- High level targets --
 # We only list these targets in the help. The other targets can still be used
@@ -43,4 +42,4 @@ push: image aws_login ## Builds and pushes the docker image to ECR
 .PHONY: aws_login
 aws_login:
 	@echo "Logging docker into AWS"
-	@eval ${AWS_LOGIN_CMD}
+	@aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin ${DOCKER_REGISTRY_URL}
