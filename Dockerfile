@@ -1,4 +1,4 @@
-FROM python:3.9.4
+FROM python:3.9.5
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV PATH="/home/svtplay-dl/.local/bin:${PATH}"
