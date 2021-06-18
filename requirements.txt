@@ -1,1 +1,1 @@
-svtplay-dl==3.9.1
+svtplay-dl==4.0
