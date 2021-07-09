@@ -4,7 +4,7 @@
 # The name of the app
 APP = "svtplay-dl"
 # The git tag for the version
-TAG ?= $(shell curl -s https://api.github.com/repos/spaam/svtplay-dl/tags | jq --raw-output '.[].name' | sort -rV | head -n1)
+TAG ?= $(shell awk -F"==" '{print $$2}' requirements.txt)
 
 # The docker tags
 DOCKER_REGISTRY_URL = "395500896865.dkr.ecr.eu-west-1.amazonaws.com"
